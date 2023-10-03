@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Account;
+use App\Models\Card;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,12 +15,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (['09367287143', '09368961831'] as $mobile) {
+        // ['mobile' => (array) [cards]]
+        foreach (['09367287143' => ['6104337303523383', '5859831055135825'], '09368961831' => ['6037998252382998', '5022291032319368']] as $mobile => $cards) {
             $user = \App\Models\User::factory()->create([
                 'mobile' => $mobile,
             ]);
 
-            Account::factory()->count(3)->for($user)->create();
+            $account = Account::factory()->count(1)->for($user)->create();
+
+            foreach ($cards as $cardNumber) {
+                Card::create([
+                    'account_id' => $account[0]->id,
+                    'user_id' => $user->id,
+                    'card_number' => $cardNumber,
+                ]);
+            }
         }
     }
 }
