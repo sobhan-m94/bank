@@ -1,6 +1,6 @@
 # نیازمندی ها
 - php 8.1
-- postgresql() OR mysql
+- postgresql/mysql
 - webserver
 
 ترجیحا دیتابیس pg نصب بشه
