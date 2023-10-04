@@ -28,7 +28,7 @@ class TransactionRepository
         try {
             $amountWithFee = $amount + $this->fee;
 
-            // قفل کردن رکورد برای جلوگیری از پردازش های همزمان و رخ دادم مغایرت مالی
+            // قفل کردن رکورد برای جلوگیری از پردازش های همزمان و رخ دادن مغایرت مالی
             // در حالت قفل،سایر پردازش های همزمان،امکان خواندن رکورد را ندارند و تا پایان تراکنش،منتظر میمانند
             $sender = Card::where('card_number', $sender)->lockForUpdate()->first();
             $balance = $sender->balance;
