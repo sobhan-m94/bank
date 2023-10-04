@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,11 @@ class LoginUsingId
      */
     public function handle(Request $request, Closure $next): Response
     {
-        Auth::loginUsingId(request('userId', 1));
+        $user = User::find(request('userId', 1));
+        if (empty($user)) {
+            abort(404);
+        }
+        Auth::loginUsingId($user->id);
         return $next($request);
     }
 }
