@@ -39,7 +39,7 @@ class WithdrawRequest extends FormRequest
                 'integer',
                 'digits:16',
                 new CardNumberRule,
-                'different:from',
+                'different:sender',
                 Rule::exists('cards', 'card_number')
             ],
             'amount' => [
