@@ -27,7 +27,7 @@ class TransactionRepository
         DB::beginTransaction();
         try {
             $amountWithFee = $amount + $this->fee;
-            
+
             // قفل کردن رکورد برای جلوگیری از پردازش های همزمان و رخ دادم مغایرت مالی
             // در حالت قفل،سایر پردازش های همزمان،امکان خواندن رکورد را ندارند و تا پایان تراکنش،منتظر میمانند
             $sender = Card::where('card_number', $sender)->lockForUpdate()->first();
@@ -54,6 +54,8 @@ class TransactionRepository
             NewTransactionEvent::dispatch($transaction);
             DB::commit();
             return true;
+        } catch (AppException $e) {
+            throw $e;
         } catch (\Exception $e) {
             DB::rollBack();
             return false;
