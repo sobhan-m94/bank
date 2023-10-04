@@ -1,6 +1,7 @@
 <?php
 namespace App\Notifications;
- 
+
+use App\Facades\SMS;
 use Illuminate\Notifications\Notification;
  
 class SMSChannel
@@ -12,5 +13,6 @@ class SMSChannel
     {
         
         $message = $notification->toSms($notifiable);
+        SMS::send($notifiable->mobile, $message);
     }
 }
