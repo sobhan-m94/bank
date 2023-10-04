@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware([ConvertNumbersToEnglish::class, LoginUsingId::class])->get('withdraw', [TransactionController::class, 'withdraw']);
+Route::middleware([ConvertNumbersToEnglish::class, LoginUsingId::class])->post('withdraw', [TransactionController::class, 'withdraw']);
 Route::get('/report/most-active-users', [ReportController::class, 'mostActiveUsers']);
