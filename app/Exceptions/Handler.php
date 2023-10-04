@@ -26,5 +26,16 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+        $this->renderable(function (Throwable $e) {
+            if ($e instanceof AppException) {
+                return response()->json(
+                    [
+                        'ok' => false,
+                        'message' => $e->getMessage()
+                    ],
+                    $e->getCode(),
+                );
+            }
+        });
     }
 }

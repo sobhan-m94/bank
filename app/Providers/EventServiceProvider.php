@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\NewTransactionEvent;
+use App\Listeners\SendDespositNotification;
+use App\Listeners\SendWithdrawNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +21,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        NewTransactionEvent::class => [
+            SendWithdrawNotification::class,
+            SendDespositNotification::class,
+        ]
     ];
 
     /**

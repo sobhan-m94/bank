@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Account;
+use App\Models\Balance;
 use App\Models\Card;
 use Illuminate\Database\Seeder;
 
@@ -24,10 +25,19 @@ class DatabaseSeeder extends Seeder
             $account = Account::factory()->count(1)->for($user)->create();
 
             foreach ($cards as $cardNumber) {
-                Card::create([
+
+                $card = Card::create([
                     'account_id' => $account[0]->id,
                     'user_id' => $user->id,
                     'card_number' => $cardNumber,
+                ]);
+                $balance = 1500000;
+                Balance::create([
+                    'card_id' => $card->id,
+                    'current' => 0,
+                    'add' => $balance,
+                    'take' => 0,
+                    'balance' => $balance,
                 ]);
             }
         }
