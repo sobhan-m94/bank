@@ -21,7 +21,7 @@ class Card extends Model
         return $this->hasMany(Transaction::class, 'sender_card_id');
     }
 
-    public function depositTransaction()
+    public function depositTransactions()
     {
         return $this->hasMany(Transaction::class, 'receiver_card_id');
     }
