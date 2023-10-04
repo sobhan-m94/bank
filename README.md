@@ -10,8 +10,9 @@
 - git clone git@github.com:sobhan-m94/bank.git bank
 - cd bank
 - composer install
-- php artisan key:gen
 - cp .env.example .env
+- php artisan key:gen
+
 
 
 در فایل .env
